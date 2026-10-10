@@ -234,5 +234,6 @@ for (const [key, value] of Object.entries(colors)) {
 fs.writeFileSync(CONFIG_PATH, src);
 
 console.log("\nsite.config.ts updated.");
-console.log("Still to edit by hand: hero headline and image, listings, agent, locations, journal, and the SEO title's city names.");
+console.log("Next: run `npm run content` to edit properties, locations, images and hero text.");
+console.log("Still to edit by hand in site.config.ts: agent details, journal titles and the SEO title's city names.");
 console.log("Run `npm run dev` to preview.\n");

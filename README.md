@@ -13,7 +13,7 @@ npm run dev        # http://localhost:3000
 
 ## New client in ~10 minutes
 
-Everything client-specific lives in **`site.config.ts`**.
+Client-specific content lives in **`site.config.ts`** and **`content/*.json`**.
 
 Start with the setup script. It asks for the business name, tagline, phone, email and colors,
 then updates `site.config.ts` (press Enter to keep any current value):
@@ -31,10 +31,30 @@ npm run setup -- --name "Aurora Estates" --phone "+971 50 123 4567" --accent "#B
 ```
 
 Flags: `--name --tagline --phone --email --accent --background --text --dark --yes`.
-The script does not touch images, listings or copy. Edit those by hand as below.
+Then run the content editor for everything else:
 
-1. Brand: `name`, `tagline`, `logo` (optional), `theme` colors, `contact`, `social`.
-2. Copy: hero headline, listings, lifestyle panels, stats, agent, locations, journal, footer.
+```bash
+npm run content
+```
+
+It is a menu for **properties** (add, edit, remove, reorder), **locations**, **images** (hero, lifestyle
+panels, agent portrait and gallery, journal, social share image), **hero text**, **search price filters**
+(currency and limits) and **sections on/off**. Every change is saved as you go.
+
+Images: drop files into `public/client/` and pick them by number, or paste a URL. A new image host is
+added to `next.config.ts` automatically (restart `npm run dev` after that).
+
+You can also edit the files directly:
+
+- `content/listings.json` properties and price filters
+- `content/locations.json` hover list in "Where we work"
+- `content/images.json` hero, lifestyle, agent, journal and social images
+- `site.config.ts` everything else (agent details, journal titles, footer, SEO)
+
+Checklist for each client:
+
+1. Brand (or use `npm run setup`): `name`, `tagline`, `logo` (optional), `theme` colors, `contact`, `social`.
+2. Copy (or use `npm run content`): hero headline, listings, lifestyle panels, stats, agent, locations, journal, footer.
 3. Images: use `/client/your-file.jpg` (put files in `public/client/`) or any remote URL.
    New remote hosts must be added to `images.remotePatterns` in `next.config.ts`.
 4. Sections: switch any section on or off in `sections: { ... }`.
@@ -46,7 +66,9 @@ The script does not touch images, listings or copy. Edit those by hand as below.
 
 ```
 site.config.ts              all content, theme and toggles
-scripts/setup-client.mjs    interactive client setup (npm run setup)
+scripts/setup-client.mjs    brand, phone, email, colors (npm run setup)
+scripts/content.mjs         properties, locations, images, hero text (npm run content)
+content/*.json              properties, locations and images
 app/
   layout.tsx                metadata, theme variables, JSON-LD
   page.tsx                  section order

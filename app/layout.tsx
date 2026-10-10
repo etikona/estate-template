@@ -43,7 +43,7 @@ const jsonLd = {
   description: site.seo.description,
   telephone: site.contact.phone,
   email: site.contact.email,
-  image: site.seo.ogImage,
+  image: site.seo.ogImage ? new URL(site.seo.ogImage, site.url).href : undefined,
   address: { "@type": "PostalAddress", streetAddress: site.contact.address },
   sameAs: site.social.map((s) => s.href),
 };
